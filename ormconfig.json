@@ -1,0 +1,14 @@
+{
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "Dreamtheater713*",
+    "database": "rocket-expense-tracker",
+    "entities": ["dist/core/entities/**/*.entity{.ts,.js}"],
+    "synchronize": true,
+    "logging": true,
+    "extra": {
+        "decimalNumbers": true
+    }
+  }
