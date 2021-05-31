@@ -18,8 +18,15 @@ export class DebtService {
         // For each debt owner, create a payment amount from the debtor based on the weight of the debt the debtor owes.
         // Since the debt owners will have a negative weight, we need to take the absolute value of what they owe.
         return debtOwners
-            .map((debtOwner) => debtors.map((debtor) => ({ from: debtor.user, to: debtOwner.user, amount: Math.abs(debtor.amountOwes * debtOwner.weight) })))
-            .reduce((acc, debts) => [...acc, ...debts], []);
+            .map((debtOwner) =>
+                debtors.map((debtor) => ({
+                    from: debtor.user,
+                    to: debtOwner.user,
+                    amount: this._roundToNearestCent(Math.abs(debtor.amountOwes * debtOwner.weight)),
+                })),
+            )
+            .reduce((acc, debts) => [...acc, ...debts], [])
+            .sort((first, second) => this._debtSorter(first, second));
     }
 
     private _getAverageExpense(group: Group): number {
@@ -62,7 +69,7 @@ export class DebtService {
     private _getAmountOwedPerUser(group: Group): DebtOwner[] {
         const expenses = group.expenses;
         // Get the average amount owed in the group:
-        const average = this._getAverageExpense(group);
+        const average = this._roundToNearestCent(this._getAverageExpense(group));
         // For each user that owes money, get the sum of the amount owed and calculate the weight
         return group.users
             .map((user) => ({
@@ -70,5 +77,23 @@ export class DebtService {
                 amountOwes: average - this._getUserTotalSpent(expenses, user),
             }))
             .map((debtOwner) => ({ ...debtOwner, weight: debtOwner.amountOwes / this._getTotalDebt(group) }));
+    }
+
+    // Sort by the debtor's name, than the debt owner's name.
+    private _debtSorter(first: Debt, second: Debt): number {
+        const formatName = (name: string) => name.toLowerCase();
+        return formatName(first.from.name) > formatName(second.from.name)
+            ? 1
+            : formatName(first.from.name) < formatName(second.from.name)
+            ? -1
+            : formatName(first.to.name) > formatName(second.to.name)
+            ? 1
+            : formatName(first.to.name) < formatName(second.to.name)
+            ? -1
+            : 0;
+    }
+
+    private _roundToNearestCent(value: number): number {
+        return Math.round(value * 100) / 100;
     }
 }
