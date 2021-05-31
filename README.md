@@ -14,5 +14,5 @@ $ npm start
 
 ## Extra Information
 
-The database info and connection is automatically handled by the NestJS Framework using TypeORM. 
+The database connection is automatically handled by the NestJS Framework using TypeORM via the ormconfig.json file. 
 Yes, the password is visible in plain-sight for this demo purpose. You would not do that in a real application.
