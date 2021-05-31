@@ -5,11 +5,11 @@ import { ExpenseModule } from './expense/expense.module';
 import { UserModule } from './user/user.module';
 import { GroupModule } from './group/group.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CalculationModule } from './calculation/calculation.module';
+import { DebtModule } from './debt/debt.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), ExpenseModule, UserModule, GroupModule, CalculationModule],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [TypeOrmModule.forRoot(), ExpenseModule, UserModule, GroupModule, DebtModule],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}

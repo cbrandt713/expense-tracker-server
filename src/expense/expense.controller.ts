@@ -4,7 +4,6 @@ import { ExpenseService } from './expense.service';
 
 @Controller('group/:groupId/expense')
 export class ExpenseController {
-
     constructor(private _expenseService: ExpenseService) {}
 
     @Get('')

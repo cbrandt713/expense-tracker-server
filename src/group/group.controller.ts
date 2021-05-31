@@ -25,5 +25,4 @@ export class GroupController {
     async deleteUser(@Param('groupId') id: number): Promise<void> {
         await this._groupService.deleteGroup(id);
     }
-
 }

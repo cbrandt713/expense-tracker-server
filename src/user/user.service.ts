@@ -5,7 +5,6 @@ import { DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
 export class UserService {
-
     constructor(@InjectRepository(User) private _userRepository: Repository<User>) {}
 
     getUsers(): Promise<User[]> {
@@ -23,5 +22,4 @@ export class UserService {
     deleteUser(id: number): Promise<DeleteResult> {
         return this._userRepository.delete(id);
     }
-
 }

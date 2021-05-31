@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Expense } from "./expense.entity";
-import { Group } from "./group.entity";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Expense } from './expense.entity';
+import { Group } from './group.entity';
 
 @Entity()
 export class User {
@@ -10,9 +10,9 @@ export class User {
     @Column()
     name: string;
 
-    @ManyToMany(type => Group, group => group.users)
+    @ManyToMany((type) => Group, (group) => group.users)
     groups?: Group[];
 
-    @OneToMany(type => Expense, expense => expense.user)
+    @OneToMany((type) => Expense, (expense) => expense.user)
     expenses?: Expense[];
 }

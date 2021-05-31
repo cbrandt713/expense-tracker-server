@@ -5,9 +5,8 @@ import { DeleteResult, Repository } from 'typeorm';
 
 @Injectable()
 export class GroupService {
-
     constructor(@InjectRepository(Group) private _groupRepository: Repository<Group>) {}
-    
+
     getAllGroups(): Promise<Group[]> {
         return this._groupRepository.find();
     }
